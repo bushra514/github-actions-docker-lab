@@ -53,36 +53,58 @@ jobs:
   #     - name: Display running docker containers
   #       run: docker ps -a
 
-  docker-image-push:
+  dockerhub-image-push-:
     runs-on: ubuntu-latest
 
     steps: 
       - name: Checkout the repo
         uses: actions/Checkout@v4
 
-      - name: Set the image name for the github container registry
+      - name: Login to dockerhub
         run: |
-          echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
-#yaha docker image k liye naming convention store kr rhe h env variable which will be stored in a file and will further used
-#The ${GITHUB_REPOSITORY,,} Bash expansion converts the repository owner and name to lowercase.
-
-      - name: Login to ghcr
-        run: |
-          echo "${{secrets.GITHUB_TOKEN}}" | docker login ghcr.io \
-            -u "${{github.actor}}" \
+          echo "${{secrets.DOCKER_TOKEN}}" | docker login \
+            -u "${{secrets.DOCKER_USERNAME}}" \
             --password-stdin
 
       - name: Build the image
         run: |
-          docker build \
-            -t ${{env.IMAGE_NAME}}:${{github.sha}} .
+          docker build -t ${{secrets.DOCKER_USERNAME}}/myapp:${{github.sha}} .
 
       - name: Verify the built image
         run: docker images
 
-      - name: Push the image to the ghcr
+      - name: Push the image to the DOCKERHUB
         run: |
-          docker push ${{env.IMAGE_NAME}}:${{github.sha}}
+          docker push ${{secrets.DOCKER_USERNAME}}/myapp:${{github.sha}}
 
 
-          
+#   docker-image-push:
+#     runs-on: ubuntu-latest
+
+#     steps: 
+#       - name: Checkout the repo
+#         uses: actions/Checkout@v4
+
+#       - name: Set the image name for the github container registry
+#         run: |
+#           echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
+# #yaha docker image k liye naming convention store kr rhe h env variable which will be stored in a file and will further used
+# #The ${GITHUB_REPOSITORY,,} Bash expansion converts the repository owner and name to lowercase.
+
+      # - name: Login to ghcr
+      #   run: |
+      #     echo "${{secrets.GITHUB_TOKEN}}" | docker login ghcr.io \
+      #       -u "${{github.actor}}" \
+      #       --password-stdin
+
+      # - name: Build the image
+      #   run: |
+      #     docker build \
+      #       -t ${{env.IMAGE_NAME}}:${{github.sha}} .
+
+      # - name: Verify the built image
+      #   run: docker images
+
+      # - name: Push the image to the ghcr
+      #   run: |
+      #     docker push ${{env.IMAGE_NAME}}:${{github.sha}}        
