@@ -11,6 +11,9 @@ on:
 
   workflow_dispatch:
 
+permissions:
+  content: read
+  packages: write
 
 jobs:
   # docker-info:  
