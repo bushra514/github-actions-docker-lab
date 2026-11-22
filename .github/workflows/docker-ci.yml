@@ -39,7 +39,7 @@ jobs:
         uses: actions/Checkout@v4
 
       - name: Build the docker image
-        run: docker build -t myapp:v1.0.0 .
+        run: docker build -t myapp:${{github.sha}}
 
       - name: List newly created docker image
         run: docker images
