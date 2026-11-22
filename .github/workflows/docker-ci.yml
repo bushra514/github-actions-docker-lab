@@ -1,0 +1,34 @@
+name: Github actions with docker
+
+on:
+  push:
+    branches:
+      - main
+
+    path:
+      - '**.yml'
+      - '!requirements.txt'
+
+  workflow_dispatch:
+
+
+jobs:
+  docker-info:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check docker version
+        run: docker --version
+      
+      - name: display docker info
+        run: docker info
+      
+      - name: Display docker images 
+        run: docker images
+
+      - name: docker containers
+        run: docker ps -a
+
+
+    
+
