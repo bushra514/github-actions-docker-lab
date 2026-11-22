@@ -62,14 +62,14 @@ jobs:
 
       - name: Set the image name for the github container registry
         run: |
-          echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,} >> $GITHUB_ENV" 
+          echo "IMAGE_NAME=ghcr.io/${GITHUB_REPOSITORY,,}" >> $GITHUB_ENV
 #yaha docker image k liye naming convention store kr rhe h env variable which will be stored in a file and will further used
 #The ${GITHUB_REPOSITORY,,} Bash expansion converts the repository owner and name to lowercase.
 
       - name: Login to ghcr
         run: |
           echo "${{secrets.GITHUB_TOKEN}}" | docker login ghcr.io \
-            - u "${{github.actor}}" \
+            -u "${{github.actor}}" \
             --password-stdin
 
       - name: Build the image
