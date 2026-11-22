@@ -13,7 +13,9 @@ on:
 
 
 jobs:
-  docker-info:
+  docker-info:  
+
+
     runs-on: ubuntu-latest
 
     steps:
@@ -29,6 +31,21 @@ jobs:
       - name: docker containers
         run: docker ps -a
 
+  docker-image-build:
+    runs-on: ubuntu-latest
 
-    
+    steps:
+      - name: Checkout the code
+        uses: actions/Checkout@v4
 
+      - name: Build the docker image
+        run: docker build -t myapp:v1.0.0 .
+
+      - name: List newly created docker image
+        run: docker images
+
+      - name: Build a container from image
+        run: docker run -dt --name myapp-container myapp:v1.0.0.
+
+      - name: Display running docker containers
+        run: docker ps -a
