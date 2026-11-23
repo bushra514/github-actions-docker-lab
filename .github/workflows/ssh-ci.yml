@@ -2,25 +2,27 @@ name: Application runs on a self hosted runner
 
 on:
   push: 
-    - main
+    branches:
+      - main
   
-  path: 
-    - 'ssh-ci.yml'
+    path: 
+      - 'ssh-ci.yml'
 
   workflow_dispatch:
 
 jobs:
-  runs-on: ubuntu-latest
+  ssh-login:
+    runs-on: ubuntu-latest
 
-  steps: 
-    - name: Connect to Azure VM
-      uses: appleboy/ssh-action@v1
-      with:
-        host: ${{secrets.AZURE_VM_HOST}}
-        User: ${{secrets.AZURE_VM_USER}}
-        Key: ${{secrets.AZURE_VM_SSH_PRIVATE_KEY}}
-      run: |
-        echo "SSH Connection Succesful!"
-        whoami
-        hostname
-        docker images  
+    steps: 
+      - name: Connect to Azure VM
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{secrets.AZURE_VM_HOST}}
+          User: ${{secrets.AZURE_VM_USER}}
+          Key: ${{secrets.AZURE_VM_SSH_PRIVATE_KEY}}
+        run: |
+          echo "SSH Connection Succesful!"
+          whoami
+          hostname
+          docker images  
