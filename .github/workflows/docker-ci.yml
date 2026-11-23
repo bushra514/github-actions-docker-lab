@@ -130,13 +130,13 @@ jobs:
     #     - name: Check pulled image
     #       run: docker images
     
-    # docker-container:
-      needs: docker-image-pull  
-      runs-on: ubuntu-latest
+    # # docker-container:
+    #   needs: docker-image-pull  
+    #   runs-on: ubuntu-latest
 
-      steps:
-        - name: Create a container from pulled image
-          run: docker run -dt --name myapp-container bushrahassan/myapp:58302cb413a94b4f5f2d86d566e9e0cad0fb838f
+    #   steps:
+    #     - name: Create a container from pulled image
+    #       run: docker run -dt --name myapp-container bushrahassan/myapp:58302cb413a94b4f5f2d86d566e9e0cad0fb838f
 
-        - name: Check running containers
-          run: docker ps -a
+    #     - name: Check running containers
+    #       run: docker ps -a
