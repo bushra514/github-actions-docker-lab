@@ -21,8 +21,10 @@ jobs:
           host: ${{secrets.AZURE_VM_HOST}}
           username: ${{secrets.AZURE_VM_USER}}
           key: ${{secrets.AZURE_VM_SSH_PRIVATE_KEY}}
-          run: |
+          script: |
             echo "SSH Connection Succesful!"
             whoami
             hostname
             docker images  
+
+# run is used to execute the commands on the github runner and script is used to execute the commands on azure/self-hosted vm
