@@ -53,7 +53,7 @@ jobs:
   #     - name: Display running docker containers
   #       run: docker ps -a
 
-  dockerhub-image-push-:
+  # dockerhub-image-push-:
     runs-on: ubuntu-latest
 
     steps: 
@@ -108,3 +108,29 @@ jobs:
       # - name: Push the image to the ghcr
       #   run: |
       #     docker push ${{env.IMAGE_NAME}}:${{github.sha}}        
+
+
+
+    docker-image-pull:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Check available images
+          run: docker images
+
+        - name: Pull the image from the docker reigstry
+          run: docker pull bushrahassan/myapp:58302cb413a94b4f5f2d86d566e9e0cad0fb838f
+
+        - name: Check pulled image
+          run: docker images
+    
+    docker-container:
+      needs: docker-image-pull  
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Create a container from pulled image
+          run: docker run -dt --name myapp-container bushrahassan/myapp:58302cb413a94b4f5f2d86d566e9e0cad0fb838f
+
+        - name: Check running containers
+          run: docker ps -a
