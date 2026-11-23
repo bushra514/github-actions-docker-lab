@@ -9,6 +9,9 @@ on:
       - '**.yml'
       - '!requirements.txt'
 
+    paths-ignore:
+      - '.github/workflows/ssh-ci.yml'
+
   workflow_dispatch:
 
 permissions:
