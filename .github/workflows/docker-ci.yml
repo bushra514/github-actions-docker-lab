@@ -17,8 +17,6 @@ permissions:
 
 jobs:
   # docker-info:  
-
-
   #   runs-on: ubuntu-latest
 
   #   steps:
@@ -34,12 +32,20 @@ jobs:
   #     - name: docker containers
   #       run: docker ps -a
 
-  # docker-image-build:
-  #   runs-on: ubuntu-latest
+  docker-image-build:
+    runs-on: ubuntu-latest
 
-  #   steps:
-  #     - name: Checkout the code
-  #       uses: actions/Checkout@v4
+    steps:
+      - name: Checkout the code
+        uses: actions/Checkout@v4
+
+      - name: Validate files
+        run: |
+          echo "testing files" 
+          test -f Dockerfile 
+          test -s app/app.html
+          test -f app/index.html
+          echo "Files exists!" 
 
   #     - name: Build the docker image
   #       run: docker build -t myapp:${{github.sha}} .
@@ -111,20 +117,20 @@ jobs:
 
 
 
-    docker-image-pull:
-      runs-on: ubuntu-latest
+    # docker-image-pull:
+    #   runs-on: ubuntu-latest
 
-      steps:
-        - name: Check available images
-          run: docker images
+    #   steps:
+    #     - name: Check available images
+    #       run: docker images
 
-        - name: Pull the image from the docker reigstry
-          run: docker pull bushrahassan/myapp:58302cb413a94b4f5f2d86d566e9e0cad0fb838f
+    #     - name: Pull the image from the docker reigstry
+    #       run: docker pull bushrahassan/myapp:58302cb413a94b4f5f2d86d566e9e0cad0fb838f
 
-        - name: Check pulled image
-          run: docker images
+    #     - name: Check pulled image
+    #       run: docker images
     
-    docker-container:
+    # docker-container:
       needs: docker-image-pull  
       runs-on: ubuntu-latest
 
