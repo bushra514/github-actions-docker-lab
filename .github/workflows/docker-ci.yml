@@ -35,7 +35,7 @@ jobs:
   docker-image-build:
     runs-on: ubuntu-latest
 
-    steps:
+    steps: 
       - name: Checkout the code
         uses: actions/Checkout@v4
 
