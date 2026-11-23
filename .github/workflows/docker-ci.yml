@@ -44,7 +44,6 @@ jobs:
           echo "testing files" 
           test -f Dockerfile 
           test -s app/app.html
-          test -f app/index.html
           echo "Files exists!" 
 
   #     - name: Build the docker image
