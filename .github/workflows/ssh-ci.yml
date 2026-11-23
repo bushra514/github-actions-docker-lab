@@ -21,8 +21,8 @@ jobs:
           host: ${{secrets.AZURE_VM_HOST}}
           User: ${{secrets.AZURE_VM_USER}}
           Key: ${{secrets.AZURE_VM_SSH_PRIVATE_KEY}}
-        run: |
-          echo "SSH Connection Succesful!"
-          whoami
-          hostname
-          docker images  
+          run: |
+            echo "SSH Connection Succesful!"
+            whoami
+            hostname
+            docker images  
