@@ -19,8 +19,8 @@ jobs:
         uses: appleboy/ssh-action@v1
         with:
           host: ${{secrets.AZURE_VM_HOST}}
-          User: ${{secrets.AZURE_VM_USER}}
-          Key: ${{secrets.AZURE_VM_SSH_PRIVATE_KEY}}
+          username: ${{secrets.AZURE_VM_USER}}
+          key: ${{secrets.AZURE_VM_SSH_PRIVATE_KEY}}
           run: |
             echo "SSH Connection Succesful!"
             whoami
