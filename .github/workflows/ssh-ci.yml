@@ -24,7 +24,23 @@ jobs:
           script: |
             echo "SSH Connection Succesful!"
             whoami
+            pwd
             hostname
             docker images  
 
-# run is used to execute the commands on the github runner and script is used to execute the commands on azure/self-hosted vm
+# run is used to execute the commands on the github runner and script is used to execute the commands on azure vm
+
+  docker-image-pull:
+    runs-on: self-hosted
+
+    steps:
+      - name: Check docker images
+        run: docker images
+      
+      - name: Pull image from dockerhub
+        run: docker pull bushrahassan/myapp:58302cb413a94b4f5f2d86d566e9e0cad0fb838f
+
+      - name: Check pulled image
+        run: docker images
+
+      
