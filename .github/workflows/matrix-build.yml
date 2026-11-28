@@ -15,19 +15,30 @@ on:
 jobs:
   test:
     strategy:
+      max-parallel: 3 
       matrix:
+        os: [ubuntu, windows]
+        python-version: ["3.11","3.12","3.13"]
+        exclude:
+          - os: windows-latest
+            python: "3.11"
+
         include:
-          - os: ubuntu-latest
-            python-version: "3.11"
+          - python-version: ["310"]
+            experimental : true
 
-          - os: ubuntu-latest
-            python-version: "3.12"
+        # include:
+        #   - os: ubuntu-latest
+        #     python-version: "3.11"
 
-          - os: windows-latest
-            python-version: "3.11"
+        #   - os: ubuntu-latest
+        #     python-version: "3.12"
 
-          - os: windows-latest
-            python-version: "3.12"
+        #   - os: windows-latest
+        #     python-version: "3.11"
+
+        #   - os: windows-latest
+        #     python-version: "3.12"
 
     runs-on: ${{matrix.os}}
 
